@@ -56,12 +56,12 @@ describe('Todo route testing', () => {
 
     });
 
-    test('should return a 400 bad request api/todos/:id', async () => {
+    test('should return a 404 NOT FOUND api/todos/:id', async () => {
 
         const todoId = 99999
         const { body } = await request(testServer.app)
             .get(`/api/todos/${todoId}`)
-            .expect(400)
+            .expect(404)
 
         expect(body).toEqual({ error: `Todo with ${todoId} not found` })
 
@@ -120,15 +120,14 @@ describe('Todo route testing', () => {
 
     });
 
-    test('should return 400 if todo to update is not found', async () => {
+    test('should return 404 if todo to update is not found', async () => {
 
         const todoId = 99999
         const { body } = await request(testServer.app)
             .put(`/api/todos/${todoId}`)
-            .expect(400)
+            .expect(404)
 
         expect(body).toEqual({ error: `Todo with ${todoId} not found` })
-
 
     });
 
@@ -190,7 +189,7 @@ describe('Todo route testing', () => {
         const todoId = 99999
         const { body } = await request(testServer.app)
             .delete(`/api/todos/${todoId}`)
-            .expect(400)
+            .expect(404)
 
         expect(body).toEqual({ error: `Todo with ${todoId} not found` })
 
